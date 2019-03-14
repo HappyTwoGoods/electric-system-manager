@@ -6,7 +6,7 @@
       <div>
         <div v-for='item in listOne' class="menu">
           <router-link :to='item.path'>
-            <span class="a">{{item.name}}</span>
+            <span class="content">{{item.name}}</span>
           </router-link>
         </div>
       </div>
@@ -24,11 +24,11 @@
       return {
         listOne: [
           {
-            'path': '/copyReader',
+            'path': '/electric',
             'name': '电表信息'
           },
           {
-            'path': '/electric',
+            'path': '/copyReader',
             'name': '抄表员信息'
           },
           {
@@ -47,10 +47,11 @@
     width: 100%;
     height: 100%;
     position: fixed;
-    z-index: 100;
   }
 
   #head {
+    position: fixed;
+    z-index: 1000;
     font-family: 仿宋;
     font-size: 40px;
     color: yellow;
@@ -61,6 +62,9 @@
   }
 
   #left {
+    padding-top: 100px;
+    position: fixed;
+    z-index: 1000;
     float: left;
     height: 100%;
     width: 100px;
@@ -71,10 +75,11 @@
   }
 
   .menu {
+    border-bottom: 1px black solid;
     color: yellow;
-    font-size: 20px;
+    font-size: 18px;
     font-family: 仿宋;
-    margin-top: 20%;
+    margin-top: 30%;
   }
 
   a {
