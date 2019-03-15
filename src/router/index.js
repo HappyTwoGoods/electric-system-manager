@@ -6,6 +6,7 @@ import Electric from '@/page/home/Electric'
 import CopyReader from '@/page/home/CopyReader'
 import AddElectric from '@/page/home/AddElectric'
 import AddReader from '@/page/home/AddReader'
+import Login from '@/page/Login'
 
 
 Vue.use(Router)
@@ -45,6 +46,12 @@ export default new Router({
           component: AddReader
         }
       ]
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
     }
   ]
+
 })

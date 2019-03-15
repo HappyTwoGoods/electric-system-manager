@@ -57,6 +57,7 @@
         if ($("#" + idTwo).text() == "修改") {
           $("#" + idTwo).text("完成")
           $("#" + idOne).removeAttr("disabled")
+          $("#" + idOne).focus()
           return
         }
         if ($("#" + idTwo).text() == "完成") {
@@ -82,7 +83,7 @@
 <style scoped>
   #max {
     font-family: 新宋体;
-    overflow: auto;
+    overflow-y: auto;
     padding-top: 100px;
     padding-left: 100px;
     width: 100%;

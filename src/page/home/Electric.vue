@@ -2,7 +2,7 @@
   <div id="max">
     <div id="head">
       <router-link to="/addElectric">
-      <span>新增电表+</span>
+        <span>新增电表+</span>
       </router-link>
     </div>
     <div id="content">
@@ -26,7 +26,7 @@
           <td>{{item.username}}</td>
           <td>{{item.money}}</td>
           <td v-show="item.state==1">正常</td>
-          <td v-show="item.state==2">停电</td>
+          <td v-show="item.state==0">停电</td>
           <td><span class="operate" @click="deleteElectric(item.electricId)">删除</span></td>
         </tr>
       </table>
@@ -123,8 +123,8 @@
     border-right: 1px black solid;
   }
 
-  td:last-child {
-    width: 20%;
+  td:first-child + td + td + td {
+    width: 15%;
   }
 
   #bottom {
@@ -137,7 +137,8 @@
     border-radius: 25px;
     padding: 1% 5% 1%;
   }
-  a{
+
+  a {
     text-decoration-line: none;
     color: black;
   }
