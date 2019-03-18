@@ -7,7 +7,9 @@ import CopyReader from '@/page/home/CopyReader'
 import AddElectric from '@/page/home/AddElectric'
 import DeductionRecord from '@/page/home/DeductionRecord'
 import PayRecord from '@/page/home/PayRecord'
+import DeductionSum from '@/page/home/DeductionSum'
 import AddReader from '@/page/home/AddReader'
+import paySumMoney from '@/page/home/paySumMoney'
 import Login from '@/page/Login'
 
 
@@ -56,6 +58,16 @@ export default new Router({
           path: "/payRecord",
           name: 'PayRecord',
           component: PayRecord
+        },
+        {
+          path: "/deductionSum",
+          name: 'DeductionSum',
+          component: DeductionSum
+        },
+        {
+          path: "/paySumMoney",
+          name: 'PaySumMoney',
+          component: paySumMoney
         }
       ]
     },

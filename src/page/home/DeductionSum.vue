@@ -1,9 +1,8 @@
 <template>
   <div id="max">
     <div id="content">
-
       <div id="head">
-        <div id="sum" @click="getSum">统计</div>
+        <div id="back" @click="getBack">返回</div>
         电表编号:<input type="text" v-model="electricNum" class="a"/>
         开始时间:<select v-model="start.year" class="a">
         <option v-for="n in 10" :value="date.getFullYear()-n+1">{{date.getFullYear()-n+1}}</option>
@@ -24,17 +23,22 @@
           <td>序号</td>
           <td>电表编号</td>
           <td>用户名</td>
-          <td>用电量</td>
-          <td>金额</td>
-          <td>扣费时间</td>
+          <td>累计电量</td>
+          <td>累计金额</td>
         </tr>
         <tr v-for="(item,index) in list">
           <td>{{index+1}}</td>
           <td>{{item.electricNum}}</td>
           <td>{{item.username}}</td>
-          <td>{{item.electricConsumption}}</td>
+          <td>{{item.consumption}}</td>
           <td>{{item.money}}</td>
-          <td>{{buildDate(item.addTime)}}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>共计:</td>
+          <td><input type="text" v-model="CountPrice" disabled/></td>
         </tr>
       </table>
       <div id="bottom"></div>
@@ -46,13 +50,14 @@
   import {service} from "../../js/api";
 
   export default {
-    name: "DeductionRecord",
+    name: "DeductionSum",
     data() {
       return {
         list: null,
         electricNum: "",
         start: {"year": new Date().getFullYear() - 9, "month": 1},
         end: {"year": new Date().getFullYear(), "month": new Date().getMonth() + 1},
+        CountPrice: 0,
         date: new Date()
       }
     },
@@ -63,7 +68,7 @@
       getData() {
         let startMonth = this.start.month < 10 ? "0" + this.start.month : this.start.month
         let endMonth = this.end.month < 10 ? "0" + this.end.month : this.end.month
-        service("get", "/manager/select/deduction", {
+        service("get", "/manager/select/deductionSum", {
           electricNum: this.electricNum,
           start: this.start.year + "-" + startMonth + "-01",
           end: this.end.year + "-" + endMonth + "-28"
@@ -79,28 +84,20 @@
             }
             if (data.code === 200) {
               this.list = data.data
+              // this.sumPrice(this.list)
               return
             }
           }
         )
       },
-      getSum() {
-        this.$router.push({path:"/deductionSum"});
+      getBack() {
+        this.$router.push({path: "/deductionRecord"});
       },
-      buildDate(time) {
-        let date = new Date(time),
-          year = date.getFullYear(),
-          month = date.getMonth() + 1,
-          day = date.getDate(),
-          hour = date.getHours(),
-          min = date.getMinutes(),
-          senders = date.getSeconds()
-        return year + '-' +
-          (month < 10 ? '0' + month : month) + '-' +
-          (day < 10 ? '0' + day : day) + ' ' +
-          (hour < 10 ? '0' + hour : hour) + ':' +
-          (min < 10 ? '0' + min : min) + ':' +
-          (senders < 10 ? '0' + senders : senders)
+      sumPrice(list) {
+        for (let a in list) {
+          this.CountPrice = list[a].money + this.CountPrice
+        }
+        this.CountPrice = this.CountPrice.toFixed(2)
       }
     }
   }
@@ -108,7 +105,7 @@
 
 <style scoped>
   #max {
-    font-family: 新宋体;
+    font-family: 仿宋;
     overflow-y: auto;
     padding-top: 100px;
     padding-left: 100px;
@@ -127,7 +124,7 @@
     float: left;
   }
 
-  #sum {
+  #back {
     display: inline-block;
     padding: 0.5% 1%;
     border-radius: 25px;
@@ -151,6 +148,11 @@
     width: 12%;
     border-bottom: 1px black solid;
     border-right: 1px black solid;
+  }
+
+  td input {
+    background: transparent;
+    borde: none;
   }
 
   #bottom {
