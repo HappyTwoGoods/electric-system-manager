@@ -5,6 +5,8 @@ import ElectricPrice from '@/page/home/ElectricPrice'
 import Electric from '@/page/home/Electric'
 import CopyReader from '@/page/home/CopyReader'
 import AddElectric from '@/page/home/AddElectric'
+import DeductionRecord from '@/page/home/DeductionRecord'
+import PayRecord from '@/page/home/PayRecord'
 import AddReader from '@/page/home/AddReader'
 import Login from '@/page/Login'
 
@@ -44,6 +46,16 @@ export default new Router({
           path: "/addReader",
           name: 'AddReader',
           component: AddReader
+        },
+        {
+          path: "/deductionRecord",
+          name: 'DeductionRecord',
+          component: DeductionRecord
+        },
+        {
+          path: "/payRecord",
+          name: 'PayRecord',
+          component: PayRecord
         }
       ]
     },

@@ -34,6 +34,13 @@
           {
             'path': '/electricPrice',
             'name': '电价信息'
+          },
+          {
+            'path': '/deductionRecord',
+            'name': '扣费记录'
+          },{
+            'path': '/payRecord',
+            'name': '缴费记录'
           }
         ]
       }

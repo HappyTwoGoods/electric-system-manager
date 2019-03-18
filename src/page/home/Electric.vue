@@ -86,7 +86,7 @@
 <style scoped>
   #max {
     font-family: 新宋体;
-    overflow: auto;
+    overflow-y: auto;
     padding-top: 100px;
     padding-left: 100px;
     width: 100%;
@@ -113,7 +113,6 @@
 
   table {
     width: 60%;
-
   }
 
   td {
