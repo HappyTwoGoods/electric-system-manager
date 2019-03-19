@@ -108,7 +108,7 @@
 
 <style scoped>
   #max {
-    font-family: 新宋体;
+    font-family: 仿宋;
     overflow-y: auto;
     padding-top: 100px;
     padding-left: 100px;

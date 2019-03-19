@@ -1,9 +1,22 @@
 <template>
   <div id="max">
     <div id="head">
+
       <router-link to="/addElectric">
-        <span>新增电表+</span>
+        <span id="headspan">新增电表+</span>
       </router-link>
+      <span style="margin-left: 50px">电表编号:</span><input type="text" style="width: 70px;" v-model="num"/>
+      <span>电表类型:</span><select v-model="type">
+      <option value="">所有</option>
+      <option value="1">居民用电</option>
+      <option value="2">工业用电</option>
+    </select>
+      <span>电表状态:</span><select v-model="state">
+      <option value="">所有</option>
+      <option value="1">正常</option>
+      <option value="0">停电</option>
+    </select>
+      <input type="button" value="查询" style="margin-left: 50px" @click="getElctric"/>
     </div>
     <div id="content">
       <table cellspacing="0">
@@ -43,6 +56,9 @@
     data() {
       return {
         list: null,
+        num: null,
+        state: "",
+        type: ""
       }
     },
     mounted() {
@@ -52,9 +68,6 @@
       getElectricAll() {
         service("get", "/manager/select/electricAll", {}).then(
           data => {
-            if (data == undefined) {
-              return
-            }
             if (data.code !== 200) {
               alert(data.message)
             }
@@ -63,6 +76,20 @@
             }
           }
         )
+      },
+      getElctric() {
+        service("get", "/manager/select/electricByCondition", {
+          type: this.type,
+          state: this.state,
+          num: this.num
+        }).then(data => {
+          if (data.code !== 200) {
+            alert(data.message)
+          }
+          if (data.code === 200) {
+            this.list = data.data
+          }
+        })
       },
       deleteElectric(id) {
         if (confirm("确定要删除吗？")) {
@@ -85,7 +112,7 @@
 
 <style scoped>
   #max {
-    font-family: 新宋体;
+    font-family: 仿宋;
     overflow-y: auto;
     padding-top: 100px;
     padding-left: 100px;
@@ -94,19 +121,19 @@
   }
 
   #head {
-    margin-top: 50px;
-    margin-left: 50px;
+    margin-top: 1%;
     text-align: left;
     width: 100%;
   }
 
-  #head span {
+  #headspan {
     padding: 0.5% 5%;
     background-color: darkgray;
     border-radius: 30px;
   }
 
   #content {
+    margin-top: 50px;
     margin-left: 50px;
     width: 100%;
   }
@@ -116,7 +143,7 @@
   }
 
   td {
-    height: 35px;
+    height: 50px;
     width: 12%;
     border-bottom: 1px black solid;
     border-right: 1px black solid;

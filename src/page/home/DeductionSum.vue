@@ -36,9 +36,9 @@
         <tr>
           <td></td>
           <td></td>
-          <td></td>
           <td>共计:</td>
-          <td><input type="text" v-model="CountPrice" disabled/></td>
+          <td id="countOne"></td>
+          <td id="countTwo"></td>
         </tr>
       </table>
       <div id="bottom"></div>
@@ -48,6 +48,7 @@
 
 <script>
   import {service} from "../../js/api";
+  import $ from 'jquery'
 
   export default {
     name: "DeductionSum",
@@ -57,7 +58,8 @@
         electricNum: "",
         start: {"year": new Date().getFullYear() - 9, "month": 1},
         end: {"year": new Date().getFullYear(), "month": new Date().getMonth() + 1},
-        CountPrice: 0,
+        countPrice: null,
+        countElectric:null,
         date: new Date()
       }
     },
@@ -84,7 +86,7 @@
             }
             if (data.code === 200) {
               this.list = data.data
-              // this.sumPrice(this.list)
+              this.sumPrice(this.list)
               return
             }
           }
@@ -94,10 +96,14 @@
         this.$router.push({path: "/deductionRecord"});
       },
       sumPrice(list) {
+        this.countPrice=0
+        this.countElectric=0
         for (let a in list) {
-          this.CountPrice = list[a].money + this.CountPrice
+          this.countPrice = list[a].money * 100 + this.countPrice
+          this.countElectric=list[a].consumption*10+this.countElectric
         }
-        this.CountPrice = this.CountPrice.toFixed(2)
+        $("#countOne").text((this.countElectric+"").substr(0,(this.countElectric+"").length-1)+"."+(this.countElectric+"").substr((this.countElectric+"").length-1))
+        $("#countTwo").text((+this.countPrice + "").substr(0, (+this.countPrice + "").length - 2) + "." + (this.countPrice + "").substr((this.countPrice + "").length - 2))
       }
     }
   }

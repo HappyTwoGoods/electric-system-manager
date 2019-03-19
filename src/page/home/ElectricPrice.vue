@@ -114,7 +114,7 @@
   }
 
   td {
-    height: 35px;
+    height: 50px;
     width: 12%;
     border-bottom: 1px black solid;
     border-right: 1px black solid;

@@ -31,6 +31,12 @@
           <td>{{item.username}}</td>
           <td>{{item.money}}</td>
         </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>共计</td>
+          <td id="count"></td>
+        </tr>
       </table>
       <div id="bottom"></div>
     </div>
@@ -39,6 +45,7 @@
 
 <script>
   import {service} from "../../js/api";
+  import $ from 'jquery'
 
   export default {
     name: "PayRecord",
@@ -48,6 +55,7 @@
         electricNum: "",
         start: {"year": new Date().getFullYear() - 9, "month": 1},
         end: {"year": new Date().getFullYear(), "month": new Date().getMonth() + 1},
+        CountPrice: null,
         date: new Date()
       }
     },
@@ -74,6 +82,7 @@
             }
             if (data.code === 200) {
               this.list = data.data
+              this.sumPrice(this.list)
               return
             }
           }
@@ -81,6 +90,13 @@
       },
       getBack() {
         this.$router.push({path: "/payRecord"});
+      },
+      sumPrice(list) {
+        this.CountPrice=0
+        for (let a in list) {
+          this.CountPrice = list[a].money * 100 + this.CountPrice
+        }
+        $("#count").text((+this.CountPrice + "").substr(0, (+this.CountPrice + "").length - 2) + "." + (+this.CountPrice + "").substr((+this.CountPrice + "").length - 2))
       }
     }
   }

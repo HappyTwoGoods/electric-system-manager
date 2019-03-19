@@ -63,7 +63,7 @@
     font-size: 40px;
     color: yellow;
     line-height: 100px;
-    background: linear-gradient(45deg, red, white);
+    background: linear-gradient(45deg, darkgray, white);
     width: 100%;
     height: 100px;
   }
@@ -78,7 +78,7 @@
     position: fixed;
     z-index: 100;
     overflow-y: auto;
-    background: linear-gradient(45deg, white, red);
+    background: linear-gradient(45deg, white, darkgray);
   }
 
   .menu {
